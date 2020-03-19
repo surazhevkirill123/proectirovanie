@@ -1,22 +1,41 @@
 package by.bsu.lab2.bisiness;
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 enum TourType { Relaxation, Excursion, Shopping }
 
 public class Tour {
+    private static final AtomicInteger seed = new AtomicInteger();//для генерации уникального id
+
+    @NotNull//валидация
+    private int id;
+    @NotNull
     private TourType tourType;
+    @NotNull
     private boolean isBurning;
+    @NotNull
     private String tourOperator;
+    @NotNull
     private String customer;
+    @NotNull
     private String tourStartLocation;
+    @NotNull
     private String tourFinishLocation;
+    @NotNull
     private double cost;
+    @NotNull
     private Date tourStartTime;
+    @NotNull
     private Date tourFinishTime;
 
     public Tour(TourType tourType, boolean isBurning, String tourOperator,String customer,
                 String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) {
+
+        this.id = seed.incrementAndGet();
         this.tourType = tourType;
         this.isBurning = isBurning;
         this.tourOperator = tourOperator;
@@ -26,12 +45,15 @@ public class Tour {
         this.cost = cost;
         this.tourStartTime = tourStartTime;
         this.tourFinishTime = tourFinishTime;
+
     }
 
     public Tour() {
 
     }
-
+    public int getId() {
+        return id;
+    }
 
     public TourType getTourType() {
         return tourType;
