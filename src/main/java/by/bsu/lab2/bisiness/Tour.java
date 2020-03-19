@@ -1,23 +1,26 @@
 package by.bsu.lab2.bisiness;
+
+import java.util.Date;
+
 enum TourType { Relaxation, Excursion, Shopping }
-enum IsBurning { Yes, No }
+
 public class Tour {
     private TourType tourType;
-    private IsBurning isBurning;
+    private boolean isBurning;
     private String tourOperator;
-    private String Customer;
+    private String customer;
     private String tourStartLocation;
     private String tourFinishLocation;
-    private int cost;
-    private int tourStartTime;
-    private int tourFinishTime;
+    private double cost;
+    private Date tourStartTime;
+    private Date tourFinishTime;
 
-    public Tour(TourType tourType, IsBurning isBurning, String tourOperator,String Customer,
-                String tourStartLocation,String tourFinishLocation,int cost,int tourStartTime,int tourFinishTime) {
+    public Tour(TourType tourType, boolean isBurning, String tourOperator,String customer,
+                String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) {
         this.tourType = tourType;
         this.isBurning = isBurning;
         this.tourOperator = tourOperator;
-        this.Customer = Customer;
+        this.customer = customer;
         this.tourStartLocation = tourStartLocation;
         this.tourFinishLocation = tourFinishLocation;
         this.cost = cost;
@@ -25,83 +28,81 @@ public class Tour {
         this.tourFinishTime = tourFinishTime;
     }
 
+    public Tour() {
 
-    public TourType get_tourType() {
+    }
+
+
+    public TourType getTourType() {
         return tourType;
     }
-    public void set_tourType(TourType tourType) {
+    public void setTourType(TourType tourType) {
         this.tourType = tourType;
     }
 
-    public IsBurning get_isBurning() {
+    public boolean getIsBurning() {
         return isBurning;
     }
-    public void set_isBurning(IsBurning isBurning) {
+    public void setIsBurning(boolean isBurning) {
         this.isBurning = isBurning;
     }
 
-    public String get_tourOperator() {
+    public String getTourOperator() {
         return tourOperator;
     }
-    public void set_tourOperator(String tourOperator) {
+    public void setTourOperator(String tourOperator) {
         this.tourOperator = tourOperator;
     }
 
-    public String get_Customer() {
-        return Customer;
+    public String getCustomer() {
+        return customer;
     }
-    public void set_Customer(String Customer) {
-        this.Customer = Customer;
+    public void setCustomer(String Customer) {
+        this.customer = customer;
     }
 
-    public String get_tourStartLocation() {
+    public String getTourStartLocation() {
         return tourStartLocation;
     }
-    public void set_tourStartLocation(String tourStartLocation) {
+    public void setTourStartLocation(String tourStartLocation) {
         this.tourStartLocation = tourStartLocation;
     }
 
-    public String get_tourFinishLocation() {
+    public String getTourFinishLocation() {
         return tourFinishLocation;
     }
-    public void set_tourFinishLocation(String tourFinishLocation) {
+    public void setTourFinishLocation(String tourFinishLocation) {
         this.tourFinishLocation = tourFinishLocation;
     }
 
-    public int get_cost() {
+    public double getCost() {
         return cost;
     }
-    public void set_cost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
-    public int get_tourStartTime() {
+    public Date getTourStartTime() {
         return tourStartTime;
     }
-    public void set_tourStartTime(int tourStartTime) {
+    public void setTourStartTime(Date tourStartTime) {
         this.tourStartTime = tourStartTime;
     }
 
-    public int get_tourFinishTime() {
+    public Date getTourFinishTime() {
         return tourFinishTime;
     }
-    public void set_tourFinishTime(int tourFinishTime) {
+    public void setTourFinishTime(Date tourFinishTime) {
         this.tourFinishTime = tourFinishTime;
     }
 
-    public void show()
+    public String toString()
     {
-        System.out.println("Тип тура: " + this.tourType);
-        System.out.println("Тур горящий: " + this.isBurning);
-        System.out.println("Туроператор: " + this.tourOperator);
+        String output="Тип тура: " + this.tourType.toString()+"\nТур горящий: " + this.isBurning+"\nТуроператор: " + this.tourOperator+
+                "\nЗаказчик: " + this.customer+"\nМесто начала тура: " + this.tourStartLocation+"\nМесто конца тура: " + this.tourFinishLocation+
+                "\nСтоимость: " + this.cost+"\nВремя начала тура: " + this.tourStartTime.toString()+"\nВремя конца тура: " + this.tourFinishTime.toString();
 
-        System.out.println("Заказчик: " + this.Customer);
-        System.out.println("Место начала тура: " + this.tourStartLocation);
-        System.out.println("Место конца тура: " + this.tourFinishLocation);
-
-        System.out.println("Стоимость: " + this.cost);
-        System.out.println("Время начала тура: " + this.tourStartTime);
-        System.out.println("Время конца тура: " + this.tourFinishTime);
+        return output;
     }
 
 }
