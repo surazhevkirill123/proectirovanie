@@ -1,7 +1,9 @@
 package by.bsu.lab2.bisiness;
 
+import by.bsu.lab2.service.DataValidation;
 import com.sun.istack.internal.NotNull;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -11,30 +13,27 @@ enum TourType { Relaxation, Excursion, Shopping }
 public class Tour {
     private static final AtomicInteger seed = new AtomicInteger();//для генерации уникального id
 
-    @NotNull//валидация
+
     private int id;
-    @NotNull
     private TourType tourType;
-    @NotNull
     private boolean isBurning;
-    @NotNull
     private String tourOperator;
-    @NotNull
     private String customer;
-    @NotNull
     private String tourStartLocation;
-    @NotNull
     private String tourFinishLocation;
-    @NotNull
     private double cost;
-    @NotNull
     private Date tourStartTime;
-    @NotNull
     private Date tourFinishTime;
-
     public Tour(TourType tourType, boolean isBurning, String tourOperator,String customer,
-                String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) {
-
+                String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) throws Exception {
+        try {
+            DataValidation.CostValidation(cost);
+            DataValidation.DateValidation(tourStartTime,tourFinishTime);
+        }
+        catch (Exception e)
+        {
+             e.getMessage();
+        }
         this.id = seed.incrementAndGet();
         this.tourType = tourType;
         this.isBurning = isBurning;
@@ -49,7 +48,7 @@ public class Tour {
     }
 
     public Tour() {
-
+        this.id = seed.incrementAndGet();
     }
     public int getId() {
         return id;
@@ -126,5 +125,6 @@ public class Tour {
 
         return output;
     }
+
 
 }
