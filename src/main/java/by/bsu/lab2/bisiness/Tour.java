@@ -2,13 +2,12 @@ package by.bsu.lab2.bisiness;
 
 import by.bsu.lab2.service.DataValidation;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-enum TourType { Relaxation, Excursion, Shopping }
-
-public class Tour {
+public class Tour implements Serializable {
     private static final AtomicInteger seed = new AtomicInteger();//для генерации уникального id
 
 
