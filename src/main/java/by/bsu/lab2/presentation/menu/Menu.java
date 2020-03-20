@@ -3,6 +3,8 @@ package by.bsu.lab2.presentation.menu;
 import by.bsu.lab2.bisiness.Tour;
 import by.bsu.lab2.bisiness.TourType;
 import by.bsu.lab2.dbo.FileDbProcessor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +14,7 @@ import java.util.Scanner;
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
     private FileDbProcessor processor = new FileDbProcessor();
+    private Logger logger = LogManager.getLogger(Menu.class);
 
     private int choose(String question, int variantNumber) {
         int action;
@@ -49,7 +52,7 @@ public class Menu {
                         return;
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                logger.error(e);
             }
         }
     }
