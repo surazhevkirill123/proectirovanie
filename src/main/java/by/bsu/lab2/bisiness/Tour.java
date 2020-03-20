@@ -1,9 +1,7 @@
 package by.bsu.lab2.bisiness;
 
 import by.bsu.lab2.service.DataValidation;
-import com.sun.istack.internal.NotNull;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,32 +16,22 @@ public class Tour {
     private TourType tourType;
     private boolean isBurning;
     private String tourOperator;
-    private String customer;
     private String tourStartLocation;
     private String tourFinishLocation;
     private double cost;
     private Date tourStartTime;
     private Date tourFinishTime;
     public Tour(TourType tourType, boolean isBurning, String tourOperator,String customer,
-                String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) throws Exception {
-        try {
-            DataValidation.CostValidation(cost);
-            DataValidation.DateValidation(tourStartTime,tourFinishTime);
-        }
-        catch (Exception e)
-        {
-             e.getMessage();
-        }
+                String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) throws IllegalArgumentException {
         this.id = seed.incrementAndGet();
-        this.tourType = tourType;
-        this.isBurning = isBurning;
-        this.tourOperator = tourOperator;
-        this.customer = customer;
-        this.tourStartLocation = tourStartLocation;
-        this.tourFinishLocation = tourFinishLocation;
-        this.cost = cost;
-        this.tourStartTime = tourStartTime;
-        this.tourFinishTime = tourFinishTime;
+        setTourType(tourType);
+        setIsBurning(isBurning);
+        setTourOperator(tourOperator);
+        setTourStartLocation(tourStartLocation);
+        setTourFinishLocation(tourFinishLocation);
+        setCost(cost);
+        setTourStartTime(tourStartTime);
+        setTourFinishTime(tourFinishTime);
 
     }
 
@@ -75,13 +63,6 @@ public class Tour {
         this.tourOperator = tourOperator;
     }
 
-    public String getCustomer() {
-        return customer;
-    }
-    public void setCustomer(String Customer) {
-        this.customer = customer;
-    }
-
     public String getTourStartLocation() {
         return tourStartLocation;
     }
@@ -99,7 +80,10 @@ public class Tour {
     public double getCost() {
         return cost;
     }
-    public void setCost(double cost) {
+    public void setCost(double cost) throws IllegalArgumentException {
+        if (!DataValidation.costValidation(cost)) {
+            throw new IllegalArgumentException("Cost cannot be negative!");
+        }
         this.cost = cost;
     }
 
@@ -113,17 +97,19 @@ public class Tour {
     public Date getTourFinishTime() {
         return tourFinishTime;
     }
-    public void setTourFinishTime(Date tourFinishTime) {
+    public void setTourFinishTime(Date tourFinishTime) throws IllegalArgumentException {
+        if (!DataValidation.dateValidation(tourStartTime, tourFinishTime)) {
+            throw new IllegalArgumentException("Cost cannot be negative!");
+        }
         this.tourFinishTime = tourFinishTime;
     }
 
     public String toString()
     {
-        String output="Тип тура: " + this.tourType.toString()+"\nТур горящий: " + this.isBurning+"\nТуроператор: " + this.tourOperator+
-                "\nЗаказчик: " + this.customer+"\nМесто начала тура: " + this.tourStartLocation+"\nМесто конца тура: " + this.tourFinishLocation+
-                "\nСтоимость: " + this.cost+"\nВремя начала тура: " + this.tourStartTime.toString()+"\nВремя конца тура: " + this.tourFinishTime.toString();
 
-        return output;
+        return "Тип тура: " + getTourType().toString()+"\nТур горящий: " + getIsBurning()+"\nТуроператор: " + getTourOperator()+
+                "\nМесто начала тура: " + getTourStartLocation()+"\nМесто конца тура: " + getTourFinishLocation()+
+                "\nСтоимость: " + getCost()+"\nВремя начала тура: " + getTourStartTime().toString()+"\nВремя конца тура: " + getTourFinishTime().toString();
     }
 
 

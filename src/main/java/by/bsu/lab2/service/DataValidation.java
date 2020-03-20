@@ -1,17 +1,14 @@
 package by.bsu.lab2.service;
 
-import java.io.IOException;
 import java.util.Date;
 
 public class DataValidation {
 
-    public static void DateValidation(Date start,Date finish) throws Exception {
-        if(start.getTime()>=finish.getTime())
-            throw new Exception("Exception: tourStartTime more or equal to the tourFinishTime");
+    public static boolean dateValidation(Date start, Date finish) {
+        return start.getTime() >= finish.getTime();
     }
-    public static void CostValidation(double cost) throws Exception {
-        if(cost<=0)
-            throw new Exception("Exception: cost is less or equal to the 0");
+    public static boolean costValidation(double cost) {
+        return cost < 0;
     }
 
 }
