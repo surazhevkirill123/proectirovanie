@@ -5,10 +5,10 @@ import java.util.Date;
 public class DataValidation {
 
     public static boolean dateValidation(Date start, Date finish) {
-        return start.getTime() >= finish.getTime();
+        return start.getTime() < finish.getTime();
     }
     public static boolean costValidation(double cost) {
-        return cost < 0;
+        return cost >= 0;
     }
 
 }

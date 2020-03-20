@@ -2,17 +2,13 @@ package by.bsu.lab2.bisiness;
 
 import by.bsu.lab2.service.DataValidation;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 
-enum TourType { Relaxation, Excursion, Shopping }
-
-public class Tour {
-    private static final AtomicInteger seed = new AtomicInteger();//для генерации уникального id
-
-
-    private int id;
+public class Tour implements Serializable {
+    private String id;
     private TourType tourType;
     private boolean isBurning;
     private String tourOperator;
@@ -23,7 +19,7 @@ public class Tour {
     private Date tourFinishTime;
     public Tour(TourType tourType, boolean isBurning, String tourOperator,String customer,
                 String tourStartLocation,String tourFinishLocation,double cost,Date tourStartTime,Date tourFinishTime) throws IllegalArgumentException {
-        this.id = seed.incrementAndGet();
+        this.id = UUID.randomUUID().toString();
         setTourType(tourType);
         setIsBurning(isBurning);
         setTourOperator(tourOperator);
@@ -36,9 +32,9 @@ public class Tour {
     }
 
     public Tour() {
-        this.id = seed.incrementAndGet();
+        this.id = UUID.randomUUID().toString();
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -106,8 +102,8 @@ public class Tour {
 
     public String toString()
     {
-
-        return "Тип тура: " + getTourType().toString()+"\nТур горящий: " + getIsBurning()+"\nТуроператор: " + getTourOperator()+
+        return "id: " + getId() +
+                "\nТип тура: " + getTourType().toString()+"\nТур горящий: " + getIsBurning()+"\nТуроператор: " + getTourOperator()+
                 "\nМесто начала тура: " + getTourStartLocation()+"\nМесто конца тура: " + getTourFinishLocation()+
                 "\nСтоимость: " + getCost()+"\nВремя начала тура: " + getTourStartTime().toString()+"\nВремя конца тура: " + getTourFinishTime().toString();
     }
