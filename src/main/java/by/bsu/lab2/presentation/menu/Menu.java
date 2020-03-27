@@ -7,12 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Scanner;
+import java.util.Date;
 
 
 public class Menu {
-    private Scanner scanner = new Scanner(System.in);
+    private Input input = new Input();
     private FileDbProcessor processor = new FileDbProcessor();
     private Logger logger = LogManager.getLogger(Menu.class);
 
@@ -20,8 +19,7 @@ public class Menu {
         int action;
 
         do {
-            System.out.println(question);
-            action = scanner.nextInt();
+            action = input.askInt(question + "\n");
         } while (action < 0 || action > variantNumber);
 
         return action;
@@ -71,9 +69,7 @@ public class Menu {
     }
 
     public void showFindByIdMenu() throws Exception {
-        scanner.nextLine();
-        System.out.print("Enter id: ");
-        String id = scanner.nextLine();
+        String id = input.askString("Enter id: ");
 
         Tour tour = processor.readById(id);
         System.out.println(tour);
@@ -85,16 +81,15 @@ public class Menu {
                 \t3) Back to main menu""",3);
 
         switch (action) {
-            case 1:
+            case 1 -> {
                 showEditMenu(tour);
                 processor.update(tour);
-                break;
-            case 2:
-                processor.delete(tour);
+            }
+            case 2 -> processor.delete(tour);
         }
     }
 
-    public void showEditMenu(Tour tour) throws ParseException {
+    public void showEditMenu(Tour tour) {
         int type = choose("""
                 Choose tour type:
                 \t1) Relaxation
@@ -102,35 +97,26 @@ public class Menu {
                 \t3) Shopping""", 3);
         tour.setTourType(TourType.values()[type - 1]);
 
-        int isBurning = choose("Is it burning? 1 = no, 2 = yes", 2);
-        tour.setIsBurning(isBurning == 2);
+        boolean isBurning = input.askBool("Is it burning? (yes/no)\n");
+        tour.setIsBurning(isBurning);
 
-        scanner.nextLine();
-
-        System.out.print("Enter name of tour operator: ");
-        String tourOperator = scanner.nextLine();
+        String tourOperator = input.askString("Enter name of tour operator: ");
         tour.setTourOperator(tourOperator);
 
-        System.out.print("Enter tourStartLocation: ");
-        String tourStartLocation = scanner.nextLine();
+        String tourStartLocation = input.askString("Enter tourStartLocation: ");
         tour.setTourStartLocation(tourStartLocation);
 
-        System.out.print("Enter tourFinishLocation: ");
-        String tourFinishLocation = scanner.nextLine();
+        String tourFinishLocation = input.askString("Enter tourFinishLocation: ");
         tour.setTourFinishLocation(tourFinishLocation);
 
-        System.out.print("Enter cost: ");
-        double cost = scanner.nextDouble();
+        double cost = input.askDouble("Enter cost: ");
         tour.setCost(cost);
 
-        scanner.nextLine();
 
-        System.out.print("Enter tourStartTime: ");
-        String tourStartTime = scanner.nextLine();
-        tour.setTourStartTime(new SimpleDateFormat("dd/MM/yyyy").parse(tourStartTime));
+        Date tourStartTime = input.askDate("Enter tourStartTime: ");
+        tour.setTourStartTime(tourStartTime);
 
-        System.out.print("Enter tourFinishTime: ");
-        String tourFinishTime = scanner.nextLine();
-        tour.setTourFinishTime(new SimpleDateFormat("dd/MM/yyyy").parse(tourFinishTime));
+        Date tourFinishTime = input.askDate("Enter tourFinishTime: ");
+        tour.setTourFinishTime(tourFinishTime);
     }
 }
